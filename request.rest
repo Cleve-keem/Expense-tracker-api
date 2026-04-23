@@ -1,0 +1,91 @@
+# =========================
+# AUTHENTICATION ENDPOINTS
+# =========================
+
+## Health check endpoint test
+GET http://localhost:5001/health-check
+
+### register a user
+POST http://localhost:5001/api/v1/auth/register
+Content-Type: application/json
+
+{
+    "fullname": "Bello Hakeem",
+    "email": "belloharyourmidey@gmail.com",
+    "password": "Ayomiku@22",
+    "currency": "NGN"
+}
+
+### login user
+POST http://localhost:5001/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "email": "belloharyourmidey@gmail.com",
+    "password": "Ayomiku@22"
+}
+
+### refresh
+POST http://localhost:5001/api/v1/auth/refresh
+
+### change profile
+POST http://localhost:5001/api/v1/auth/password-reset-request
+Content-Type: application/json
+
+{
+    "email": "example@gmail.com"
+}
+
+### reset password
+POST http://localhost:5001/api/v1/auth/reset-password
+Content-Type: application/json
+
+{
+    "token": "the-reset-token",
+    "newPassword": "NewPassword@123"
+}
+
+# ======================
+# USER PROFILE ENDPOINTS
+# ======================
+
+### user profile
+POST http://localhost:5001/api/v1/profile
+
+### Dashboard Summary
+GET http://localhost:5001/api/v1/dashboard/summary
+
+# =====================
+# TRANSACTION ENDPOINTS
+# =====================
+
+### Add Record [Income/Expense]
+POST http://localhost:5001/api/v1/transactions
+Content-Type: application/json
+
+{
+    "name": "stock",
+    "amount": 5000,
+    "description": "Bought 5 bags of rice from a bus today",
+    "icon": "🍛",
+    "type": "expense"
+}
+
+### view all transactions
+GET http://localhost:5001/api/v1/transactions
+
+### view a single transaction
+GET http://localhost:5001/api/v1/transactions/2
+
+### edit a single transaction
+PATCH http://localhost:5001/api/v1/transactions/2
+Content-Type: application/json
+
+{
+    "name": "Water",
+    "amount": 500,
+    "description": "Bought 5 bags of sachet water from a bus today"
+}
+
+### delete a single transaction
+DELETE http://localhost:5001/api/v1/transactions/2
