@@ -84,17 +84,40 @@ class TransactionService {
     id: number,
     updatedRecord: any,
   ) {
-    const existingRecord = await TransactionRepository.getTransactionById(
-      user_id,
-      id,
-    );
-    if (!existingRecord)
-      throw new TranasactionRecordNotFoundError(
-        401,
-        "Transaction record not found!",
+    return await sequelize.transaction(async (t) => {
+      const existingRecord = await TransactionRepository.getTransactionById(
+        user_id,
+        id,
       );
+      if (!existingRecord)
+        throw new TranasactionRecordNotFoundError(
+          404,
+          "Transaction record not found!",
+        );
 
-    return await existingRecord.update(updatedRecord);
+      if (updatedRecord.amount && updatedRecord.amount <= 0) {
+        throw new IllegalTransactionAmountError(
+          400,
+          "Amount must be a positive number",
+        );
+      }
+
+      if (updatedRecord.name || updatedRecord.type || updatedRecord.icon) {
+        const [category] = await CategoryRepository.findOrCreate(
+          {
+            name: updatedRecord.name || existingRecord.dataValues.category.name,
+            type:
+              updatedRecord.type || existingRecord.dataValues.transaction_type,
+            icon: updatedRecord.icon || existingRecord.dataValues.category.icon,
+            user_id: user_id,
+          },
+          t,
+        );
+        updatedRecord.category_id = category.id;
+      }
+
+      return await existingRecord.update(updatedRecord, { transaction: t });
+    });
   }
 
   static async deleteTransactionRecord(user_id: number, id: number) {

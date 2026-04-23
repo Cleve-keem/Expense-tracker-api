@@ -77,16 +77,17 @@ class TransactionController {
       const transactionId = req.params.transactionId;
       const updateData = req.body;
 
-      console.log("User ID:", userId); // Debugging log
-      console.log("Transaction ID:", transactionId); // Debugging log
-      console.log("Update Data:", updateData); // Debugging log
-
-      // const result = await TransactionService.updateTransactionRecord(
-      //   userId,
-      //   Number(transactionId),
-      //   updateData
-      // );
-      // return successResponse(res, 200, "Transaction updated successfully", result);
+      const result = await TransactionService.updateTransactionRecord(
+        userId,
+        Number(transactionId),
+        updateData,
+      );
+      return successResponse(
+        res,
+        200,
+        "Transaction updated successfully",
+        result,
+      );
     } catch (error) {
       next(error);
     }
@@ -100,8 +101,16 @@ class TransactionController {
     try {
       const userId = req.user!.userId;
       const transactionId = req.params.transactionId;
-      console.log("User ID:", userId); // Debugging log
-      console.log("Transaction ID:", transactionId); // Debugging log
+      const result = await TransactionService.deleteTransactionRecord(
+        userId,
+        Number(transactionId),
+      );
+      return successResponse(
+        res,
+        200,
+        "Transaction deleted successfully",
+        result,
+      );
     } catch (error) {
       next(error);
     }

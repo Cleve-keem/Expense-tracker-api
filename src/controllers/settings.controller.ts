@@ -1,19 +1,18 @@
 import { NextFunction, Response } from "express";
 import { AuthRequest } from "../types/express.js";
 
-class UserController {
+class SettingsController {
   static async getUserProfile(
     req: AuthRequest,
     res: Response,
     next: NextFunction,
   ) {
     try {
-      console.log("User profile requested for user:", req.user?.userId);
-      // Add logic to fetch user profile data here
-    } catch (error) {
-      next(error);
+      console.log(req.user?.userId);
+    } catch (error: any) {
+      // next(error);
     }
   }
 }
 
-export default UserController;
+export default SettingsController;

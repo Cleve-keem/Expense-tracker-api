@@ -7,7 +7,10 @@ export const errorHandler = (
   res: Response,
   next: NextFunction,
 ) => {
-  console.log(`❌ [error]: ${err.name} - ${err.message}`);
+  console.log(
+    `❌ [error]: ${err.name || 500} - ${err.message || "Internal Server Error"}`,
+  );
+  console.error(err.stack);
 
   return errorResponse(res, err.statusCode, err.message);
 };

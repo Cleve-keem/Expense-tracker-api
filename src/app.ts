@@ -6,7 +6,7 @@ import { errorHandler } from "./middlewares/errorHandler.middleware.js";
 import authRoutes from "./routes/auth.route.js";
 import dashboardRoutes from "./routes/dashboard.route.js";
 import transactionRoutes from "./routes/transaction.route.js";
-import userRoutes from "./routes/user.route.js";
+import settingsRoutes from "./routes/settings.route.js";
 
 const expressLoader = () => {
   const app: Application = express();
@@ -23,7 +23,7 @@ const expressLoader = () => {
   app.use("/api/v1/auth", limiter, authRoutes);
   app.use("/api/v1/dashboard", dashboardRoutes);
   app.use("/api/v1/transactions", transactionRoutes);
-  app.use("/api/v1/me", userRoutes);
+  app.use("/api/v1/me", settingsRoutes);
 
   app.use(errorHandler);
 

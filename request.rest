@@ -45,13 +45,6 @@ Content-Type: application/json
     "newPassword": "NewPassword@123"
 }
 
-# ======================
-# USER PROFILE ENDPOINTS
-# ======================
-
-### user profile
-POST http://localhost:5001/api/v1/profile
-
 ### Dashboard Summary
 GET http://localhost:5001/api/v1/dashboard/summary
 
@@ -88,4 +81,11 @@ Content-Type: application/json
 }
 
 ### delete a single transaction
-DELETE http://localhost:5001/api/v1/transactions/2
+DELETE http://localhost:5001/api/v1/transactions/6
+
+# ======================
+# USER PROFILE ENDPOINTS
+# ======================
+
+### user profile
+GET http://localhost:5001/api/v1/me
