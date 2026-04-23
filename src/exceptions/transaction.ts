@@ -9,7 +9,7 @@ export class IllegalTransactionAmountError extends Error {
   }
 }
 
-export class TranasactionRecordNotFoundError extends Error {
+export class TransactionRecordNotFoundError extends Error {
   constructor(
     public statusCode: number,
     public message: string,

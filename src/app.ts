@@ -25,6 +25,10 @@ const expressLoader = () => {
   app.use("/api/v1/transactions", transactionRoutes);
   app.use("/api/v1/me", settingsRoutes);
 
+  app.use((req, res) => {
+    res.status(404).json({ message: "Route not found" });
+  });
+
   app.use(errorHandler);
 
   return app;

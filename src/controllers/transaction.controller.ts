@@ -26,9 +26,7 @@ class TransactionController {
       const userId = req.user!.userId;
       const response = await TransactionService.fetchAllTransactionHistory(
         userId,
-        {
-          limit: 10,
-        },
+        req.query,
       );
       return successResponse(
         res,

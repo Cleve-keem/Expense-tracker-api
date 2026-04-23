@@ -80,6 +80,10 @@ class TransactionRepository {
       ],
     });
   }
+
+  static async delete(user_id: number, id: number) {
+    return await TransactionModel.destroy({ where: { id, user_id } });
+  }
 }
 
 export default TransactionRepository;

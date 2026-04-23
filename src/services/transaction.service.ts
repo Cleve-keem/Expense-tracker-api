@@ -1,7 +1,7 @@
 import { sequelize } from "../configs/db.config.js";
 import {
   IllegalTransactionAmountError,
-  TranasactionRecordNotFoundError,
+  TransactionRecordNotFoundError,
 } from "../exceptions/transaction.js";
 import CategoryRepository from "../repositories/category.repository.js";
 import TransactionRepository from "../repositories/transaction.repository.js";
@@ -90,7 +90,7 @@ class TransactionService {
         id,
       );
       if (!existingRecord)
-        throw new TranasactionRecordNotFoundError(
+        throw new TransactionRecordNotFoundError(
           404,
           "Transaction record not found!",
         );
@@ -101,8 +101,11 @@ class TransactionService {
           "Amount must be a positive number",
         );
       }
-
-      if (updatedRecord.name || updatedRecord.type || updatedRecord.icon) {
+      if (
+        updatedRecord.dataValues.name ||
+        updatedRecord.dataValues.type ||
+        updatedRecord.dataValues.icon
+      ) {
         const [category] = await CategoryRepository.findOrCreate(
           {
             name: updatedRecord.name || existingRecord.dataValues.category.name,
@@ -121,18 +124,15 @@ class TransactionService {
   }
 
   static async deleteTransactionRecord(user_id: number, id: number) {
-    const existingRecord = await TransactionRepository.getTransactionById(
-      user_id,
-      id,
-    );
+    const deletedRows = await TransactionRepository.delete(user_id, id);
 
-    if (!existingRecord)
-      throw new TranasactionRecordNotFoundError(
-        401,
+    if (deletedRows === 0)
+      throw new TransactionRecordNotFoundError(
+        404,
         "Transaction record not found!",
       );
 
-    await existingRecord.destroy();
+    return { success: true };
   }
 }
 
