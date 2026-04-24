@@ -11,7 +11,17 @@ class UserRepository {
   }
 
   static async findUserById(id: number) {
-    return await UserModel.findOne({ where: { id } });
+    return await UserModel.findOne({
+      where: { id },
+      attributes: [
+        "id",
+        "fullname",
+        "email",
+        "currency",
+        "profilePicture",
+        "isVerified",
+      ],
+    });
   }
 
   static async findUserByResetToken(token: string) {

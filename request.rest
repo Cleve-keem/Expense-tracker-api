@@ -76,12 +76,12 @@ Content-Type: application/json
 
 {
     "name": "Water",
-    "amount": 500,
-    "description": "Bought 5 bags of sachet water from a bus today"
+    "amount": 0,
+    "description": "Bought 10 bags of sachet water from a bus today"
 }
 
 ### delete a single transaction
-DELETE http://localhost:5001/api/v1/transactions/6
+DELETE http://localhost:5001/api/v1/transactions/2
 
 # ======================
 # USER PROFILE ENDPOINTS

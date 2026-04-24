@@ -46,7 +46,11 @@ UserModel.init(
     password_reset_token: { type: DataTypes.STRING, allowNull: true },
     password_reset_token_expires: { type: DataTypes.DATE, allowNull: true },
   },
-  { sequelize, modelName: "user", indexes: [{ fields: ["email"] }] },
+  {
+    sequelize,
+    modelName: "user",
+    indexes: [{ fields: ["email"] }],
+  },
 );
 
 export default UserModel;

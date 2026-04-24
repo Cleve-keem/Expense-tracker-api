@@ -95,24 +95,25 @@ class TransactionService {
           "Transaction record not found!",
         );
 
-      if (updatedRecord.amount && updatedRecord.amount <= 0) {
+      if (updatedRecord.amount && Number(updatedRecord.amount) <= 0) {
         throw new IllegalTransactionAmountError(
           400,
           "Amount must be a positive number",
         );
       }
       if (
-        updatedRecord.dataValues.name ||
-        updatedRecord.dataValues.type ||
-        updatedRecord.dataValues.icon
+        updatedRecord.name ||
+        updatedRecord.transaction_type ||
+        updatedRecord.icon
       ) {
         const [category] = await CategoryRepository.findOrCreate(
           {
             name: updatedRecord.name || existingRecord.dataValues.category.name,
             type:
-              updatedRecord.type || existingRecord.dataValues.transaction_type,
+              updatedRecord.transaction_type ||
+              existingRecord.dataValues.transaction_type,
             icon: updatedRecord.icon || existingRecord.dataValues.category.icon,
-            user_id: user_id,
+            user_id,
           },
           t,
         );

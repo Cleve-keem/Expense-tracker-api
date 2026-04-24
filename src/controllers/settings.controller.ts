@@ -1,5 +1,7 @@
 import { NextFunction, Response } from "express";
 import { AuthRequest } from "../types/express.js";
+import SettingsService from "../services/settings.service.js";
+import { successResponse } from "../utils/response.js";
 
 class SettingsController {
   static async getUserProfile(
@@ -8,9 +10,17 @@ class SettingsController {
     next: NextFunction,
   ) {
     try {
-      console.log(req.user?.userId);
+      const result = await SettingsService.getUserProfile(
+        req.user?.userId as number,
+      );
+      return successResponse(
+        res,
+        200,
+        "User profile fetch successfully",
+        result,
+      );
     } catch (error: any) {
-      // next(error);
+      next(error);
     }
   }
 }

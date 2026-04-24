@@ -105,7 +105,7 @@ class TransactionController {
       );
       return successResponse(
         res,
-        200,
+        204,
         "Transaction deleted successfully",
         result,
       );
