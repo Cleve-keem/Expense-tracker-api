@@ -65,7 +65,7 @@ Content-Type: application/json
 }
 
 ### view all transactions
-GET http://localhost:5001/api/v1/transactions
+GET http://localhost:5001/api/v1/transactions?litmit=10
 
 ### view a single transaction
 GET http://localhost:5001/api/v1/transactions/2
@@ -89,3 +89,13 @@ DELETE http://localhost:5001/api/v1/transactions/2
 
 ### user profile
 GET http://localhost:5001/api/v1/me
+
+### update user profile
+PATCH http://localhost:5001/api/v1/me
+Content-Type: application/json
+
+{
+    "fullname": "Bello Hakeem",
+    "email": "belloharyourmidey@gmail.com",
+    "currency": "USD"
+}

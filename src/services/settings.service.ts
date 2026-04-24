@@ -6,7 +6,14 @@ class SettingsService {
     const existingUser = await UserRepository.findUserById(user_id);
     if (!existingUser) throw new UserNotFoundError("User not found!");
 
-    return existingUser.dataValues;
+    return existingUser;
+  }
+
+  static async updateUserProfile(user_id: number, updateData: any) {
+    const existingUser = await UserRepository.findUserById(user_id);
+    if (!existingUser) throw new UserNotFoundError("User not found!");
+
+    await existingUser.update(updateData);
   }
 }
 

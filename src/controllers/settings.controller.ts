@@ -23,6 +23,18 @@ class SettingsController {
       next(error);
     }
   }
+
+  static async updateUserProfile(
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      console.log("update user profile", req.body);
+    } catch (error: any) {
+      next(error);
+    }
+  }
 }
 
 export default SettingsController;

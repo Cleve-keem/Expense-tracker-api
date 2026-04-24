@@ -13,14 +13,17 @@ class UserRepository {
   static async findUserById(id: number) {
     return await UserModel.findOne({
       where: { id },
-      attributes: [
-        "id",
-        "fullname",
-        "email",
-        "currency",
-        "profilePicture",
-        "isVerified",
-      ],
+      attributes: {
+        exclude: [
+          "password",
+          "verification_token",
+          "verification_token_expires",
+          "password_reset_token",
+          "password_reset_token_expires",
+          "createdAt",
+          "updatedAt",
+        ],
+      },
     });
   }
 

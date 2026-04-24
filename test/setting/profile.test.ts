@@ -33,3 +33,39 @@ describe("Settings Service - Get Profile", () => {
     });
   });
 });
+
+describe("Settings Controller - Update Profile", () => {
+  beforeEach(() => vi.clearAllMocks());
+
+  it("should return user profile successfully", async () => {
+    const mockedUserInstance = {
+      id: 290,
+      fullname: "Hackhim Badman",
+      email: "example@gmail.com",
+      currency: "USD",
+      update: vi.fn().mockResolvedValue(true),
+    };
+
+    vi.spyOn(UserRepository, "findUserById").mockResolvedValue(
+      mockedUserInstance as any,
+    );
+
+    const updateData = {
+      fullname: "Updated Fullname",
+      email: "updated@example.com",
+      currency: "EUR",
+    };
+
+    const result = await SettingsService.updateUserProfile(
+      mockedUserInstance.id,
+      updateData,
+    );
+
+    expect(UserRepository.findUserById).toHaveBeenCalledWith(
+      mockedUserInstance.id,
+    );
+    expect(mockedUserInstance.update).toHaveBeenCalledWith(updateData);
+
+    expect(result).toMatchObject(updateData);
+  });
+});
