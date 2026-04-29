@@ -12,6 +12,18 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+  api:
+    build: .
+    container_name: expense_tracker_api
+    ports:
+      - "3000:5001"
+    environment:
+      - DB_HOST=mysql_db
+      - DB_USER=hakeem_dev
+      - DB_PASSWORD=dev_password
+      - DB_NAME=expense_tracker
+    depends_on:
+      - mysql_db
 
 volumes:
   mysql_data:
