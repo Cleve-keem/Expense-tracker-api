@@ -30,7 +30,23 @@ class SettingsController {
     next: NextFunction,
   ) {
     try {
-      console.log("update user profile", req.body);
+      const result = await SettingsService.updateUserProfile(
+        req.user?.userId as number,
+        req.body,
+      );
+      return successResponse(res, 201, "Pofile updated successfully", result);
+    } catch (error: any) {
+      next(error);
+    }
+  }
+
+  static async updateSecurity(
+    req: AuthRequest,
+    res: Response,
+    next: NextFunction,
+  ) {
+    try {
+      console.log("GET SECURITY DETAILS");
     } catch (error: any) {
       next(error);
     }

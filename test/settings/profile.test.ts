@@ -2,12 +2,12 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import UserRepository from "../../src/repositories/user.repository";
 import SettingsService from "../../src/services/settings.service";
 
-describe("Settings Service - Get Profile", () => {
+describe("GetProfile", () => {
   beforeEach(() => vi.clearAllMocks());
 
   it("should throw an error if user not found", async () => {
     const userId = 101;
-    vi.spyOn(UserRepository, "findUserById").mockResolvedValue(null); // return null
+    vi.spyOn(UserRepository, "findUserById").mockResolvedValue(null);
     await expect(SettingsService.getUserProfile(userId)).rejects.toThrow(
       "User not found!",
     );
@@ -34,16 +34,17 @@ describe("Settings Service - Get Profile", () => {
   });
 });
 
-describe("Settings Controller - Update Profile", () => {
-  beforeEach(() => vi.clearAllMocks());
-
-  it("should return user profile successfully", async () => {
+describe("updateUserProfile", () => {
+  it("should update and return the updated user profile", async () => {
     const mockedUserInstance = {
       id: 290,
-      fullname: "Hackhim Badman",
-      email: "example@gmail.com",
+      fullname: "Old Name",
+      email: "old@example.com",
       currency: "USD",
-      update: vi.fn().mockResolvedValue(true),
+      update: vi.fn().mockImplementation(function (data) {
+        Object.assign(mockedUserInstance, data);
+        return true;
+      }),
     };
 
     vi.spyOn(UserRepository, "findUserById").mockResolvedValue(
@@ -56,16 +57,23 @@ describe("Settings Controller - Update Profile", () => {
       currency: "EUR",
     };
 
-    const result = await SettingsService.updateUserProfile(
-      mockedUserInstance.id,
-      updateData,
-    );
+    const result = await SettingsService.updateUserProfile(290, updateData);
 
-    expect(UserRepository.findUserById).toHaveBeenCalledWith(
-      mockedUserInstance.id,
-    );
+    expect(UserRepository.findUserById).toHaveBeenCalledWith(290);
     expect(mockedUserInstance.update).toHaveBeenCalledWith(updateData);
 
-    expect(result).toMatchObject(updateData);
+    expect(result).toMatchObject({
+      fullname: "Updated Fullname",
+      email: "updated@example.com",
+      currency: "EUR",
+    });
+  });
+
+  it("should throw error if user doesn't exist during update", async () => {
+    vi.spyOn(UserRepository, "findUserById").mockResolvedValue(null);
+
+    await expect(
+      SettingsService.updateUserProfile(99, { fullname: "Fail" }),
+    ).rejects.toThrow("User not found!");
   });
 });

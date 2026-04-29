@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from "vitest";
 import TransactionService from "../../src/services/transaction.service";
 import TransactionRepository from "../../src/repositories/transaction.repository";
 
-describe("Transaction Service - updateTransactionRecord", () => {
+describe("updateTransactionRecord", () => {
   beforeEach(() => vi.clearAllMocks());
 
   it("should successfully update and return the record", async () => {

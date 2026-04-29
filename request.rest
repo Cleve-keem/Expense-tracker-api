@@ -10,9 +10,9 @@ POST http://localhost:5001/api/v1/auth/register
 Content-Type: application/json
 
 {
-    "fullname": "Bello Hakeem",
-    "email": "belloharyourmidey@gmail.com",
-    "password": "Ayomiku@22",
+    "fullname": "Sunday Toluwani",
+    "email": "sundaytoluwani@gmail.com",
+    "password": "@Jesutofunmi1",
     "currency": "NGN"
 }
 
@@ -57,10 +57,10 @@ POST http://localhost:5001/api/v1/transactions
 Content-Type: application/json
 
 {
-    "name": "stock",
-    "amount": 5000,
-    "description": "Bought 5 bags of rice from a bus today",
-    "icon": "🍛",
+    "name": "Gala",
+    "amount": 1000,
+    "description": "Bought few gala for my babe and myself",
+    "icon": "💲",
     "type": "expense"
 }
 
@@ -95,7 +95,7 @@ PATCH http://localhost:5001/api/v1/me
 Content-Type: application/json
 
 {
-    "fullname": "Bello Hakeem",
+    "fullname": "Hackhim Badman",
     "email": "belloharyourmidey@gmail.com",
-    "currency": "USD"
+    "currency": "NGN"
 }
