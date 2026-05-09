@@ -11,7 +11,7 @@ class TransactionModel extends Model {
   declare amount: number;
   declare user_id: number;
   declare category_id: number;
-  declare type: TransactionType;
+  declare transaction_type: TransactionType;
   declare description: string | null;
   declare date: Date;
 

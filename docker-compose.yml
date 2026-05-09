@@ -18,10 +18,10 @@ services:
     ports:
       - "3000:5001"
     environment:
-      - DB_HOST=mysql_db
-      - DB_USER=hakeem_dev
-      - DB_PASSWORD=dev_password
-      - DB_NAME=expense_tracker
+      DB_HOST: mysql_db
+      DB_USER: hakeem_dev
+      DB_PASSWORD: dev_password
+      DB_NAME: expense_tracker
     depends_on:
       - mysql_db
 
