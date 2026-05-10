@@ -7,6 +7,8 @@ import authRoutes from "./routes/auth.route.js";
 import dashboardRoutes from "./routes/dashboard.route.js";
 import transactionRoutes from "./routes/transaction.route.js";
 import settingsRoutes from "./routes/settings.route.js";
+import swaggerUi from "swagger-ui-express";
+import { swaggerSpec } from "./configs/swagger.config.js";
 
 const expressLoader = () => {
   const app: Application = express();
@@ -19,6 +21,7 @@ const expressLoader = () => {
   app.get("/health-check", (_, res) => {
     res.status(200).json({ status: "UP", pid: process.pid });
   });
+  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
   app.use("/api/v1/auth", limiter, authRoutes);
   app.use("/api/v1/dashboard", dashboardRoutes);
