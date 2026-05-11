@@ -4,9 +4,9 @@ const swaggerDefinition = {
   openapi: "3.0.0",
   //   info
   info: {
-    title: "Express API with Swagger",
+    title: "Express API Docs",
     version: "1.0.0",
-    description: "A simple Express API application documented with Swagger",
+    description: "Express API application documented ",
   },
   //   server
   servers: [{ url: "http://localhost:5001", description: "Development sever" }],
@@ -18,11 +18,11 @@ const swaggerDefinition = {
         scheme: "bearer",
         bearerFormat: "JWT",
       },
-    },
-    cookieAuth: {
-      type: "apiKey",
-      in: "cookie",
-      name: "refreshToken",
+      cookieAuth: {
+        type: "apiKey",
+        in: "cookie",
+        name: "refreshToken",
+      },
     },
   },
   //   security

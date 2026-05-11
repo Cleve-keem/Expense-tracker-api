@@ -2,7 +2,7 @@
  * @swagger
  * tags:
  *   name: Auth
- *   description: Authentication APIs
+ *   description: Authentication endpoints
  */
 
 /**
